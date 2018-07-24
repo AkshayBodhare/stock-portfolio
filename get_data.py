@@ -1,8 +1,10 @@
-"""Use alpha vantage API to get stock data."""
+"""Use alpha vantage API to get stock data (TimeSeries only)."""
 
 from alpha_vantage.timeseries import TimeSeries
 
-ALPHAVANTAGE_API_KEY = input("Enter you key")
-
-ts = TimeSeries(key=ALPHAVANTAGE_API_KEY)
-data, metadata = ts.get_intraday('GOOGL')
+def get_intraday_data(API_KEY, ticker, interval):
+    """get dataframe of the given stocks."""
+    ts = TimeSeries(API_KEY, output_format='pandas')
+    data, metadata = ts.get_intraday(symbol=ticker, 
+                                    interval=interval, outputsize='full')
+    return data
