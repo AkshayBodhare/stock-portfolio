@@ -10,7 +10,7 @@ app = dash.Dash('Hello World')
 
 app.layout = html.Div([
     dcc.Input(id='my-id', value='API_KEY', type='text'),
-    html.Div(id='my-div'),
+    html.Div(id='intermediate-value', style={'display': 'none'}),
     dcc.Dropdown(
         id='my-dropdown',
         options=[
@@ -23,17 +23,19 @@ app.layout = html.Div([
     dcc.Graph(id='my-graph')
 ], style={'width': '500'})
 
-API_KEY = ''
-@app.callback(Output('my-div', 'children'), [Input('my-id', 'value')])
+@app.callback(Output('intermediate-value', 'children'), [Input('my-id', 'value')])
 def update_output_div(input_value):
     API_KEY = input_value
+    return API_KEY
 
-@app.callback(Output('my-graph', 'figure'), [Input('my-dropdown', 'value')])
-def update_graph(selected_dropdown_value):
+@app.callback(Output('my-graph', 'figure'), [Input('my-dropdown', 'value'),
+                                    Input('intermediate-value', 'children')])
+def update_graph(selected_dropdown_value, input_key):
+    API_KEY = input_key
     df = get_intraday_data(API_KEY, selected_dropdown_value, '1min')
     return {
         'data': [{
-            'x': df['date'],
+            'x': list(df.index),
             'y': df['4. close']
         }],
         'layout': {'margin': {'l': 40, 'r': 0, 't': 20, 'b': 30}}
