@@ -6,7 +6,7 @@ import dash_html_components as html
 from get_data import get_intraday_data
 from datetime import datetime as dt
 
-app = dash.Dash('Hello World')
+app = dash.Dash('stock-tickers')
 
 app.layout = html.Div([
     html.Div([
