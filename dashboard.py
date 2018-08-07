@@ -25,21 +25,20 @@ app.layout = html.Div([
                        'font-size': '2.65em',
                        'margin-left': '7px',
                        'font-weight': 'bolder',
-                       'font-family': 'Product Sans',
                        'color': "rgba(117, 117, 117, 0.95)",
                        'margin-top': '20px',
                        'margin-bottom': '0'
                        }),
     ]),
-    # Get API_KEY from user.
-    dcc.Input(id='API_KEY', value='enter API_KEY here', type='text'),
     dcc.Dropdown(
         id='stock-ticker-input',
         options=[{'label': s[0], 'value': str(s[1])}
                  for s in zip(df_symbol.Company, df_symbol.Symbol)],
-        value=['YHOO', 'GOOGL'],
+        value=['MSFT', 'GOOGL'],
         multi=True
     ),
+    # Get API_KEY from user.
+    dcc.Input(id='API_KEY', value='enter API_KEY here', type='text'),
     html.Div(id='graphs')
 ], className="container")
 

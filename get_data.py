@@ -12,5 +12,5 @@ def get_intraday_data(API_KEY, ticker, interval):
 def get_daily(API_KEY, ticker):
     """get dataframe of bbands for the given stocks."""
     ts = TimeSeries(API_KEY, output_format='pandas')
-    data, meta_data = ts.get_daily(symbol=ticker, outputsize='full')
+    data, meta_data = ts.get_daily(symbol=ticker, outputsize='compact')
     return data
